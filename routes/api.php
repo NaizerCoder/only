@@ -17,3 +17,16 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+/*CATEGORY POSITION*/
+Route::group(['namespace' => 'App\Http\Controllers\CategoryPosition', 'prefix'=>'category_position'], function(){
+
+//    Route::get('/create','CreateController');
+    Route::post('/', 'StoreController');
+    Route::get('/', 'IndexController');
+//    Route::post('/search', 'SearchTagController');
+//    Route::delete('/{item}', 'DeleteController');
+//    Route::get('/{item}/edit', 'EditController');
+//    Route::patch('/{item}', 'UpdateController');
+});

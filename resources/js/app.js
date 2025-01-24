@@ -5,7 +5,7 @@ import store from './store'
 
 
 import './bootstrap';
-import '../css/app.css'
+import '../sass/app.scss'
 
 const app = createApp({
     el: '#app',

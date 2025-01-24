@@ -10,9 +10,14 @@ export default VueRouter.createRouter ({
             name: 'users'
         },
         {
-            path: '/drivers',
-            component: () => import('./views/driver/Index.vue'),
-            name: 'drivers'
+            path: '/cat_pos',
+            component: () => import('./views/category_position/Index.vue'),
+            name: 'cat_pos.index'
+        },
+        {
+            path: '/cat_pos/create',
+            component: () => import('./views/category_position/Create.vue'),
+            name: 'cat_pos.create'
         },
         {
             path: '/trips',

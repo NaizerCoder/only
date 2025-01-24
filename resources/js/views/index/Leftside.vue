@@ -18,9 +18,9 @@
         </router-link>
     </li>
     <li class="nav-item">
-        <router-link :to="{ name: 'drivers' }" class="nav-link">
+        <router-link :to="{ name: 'cat_pos.index' }" class="nav-link">
             <i class="nav-icon fas fa-home"></i>
-            Водители
+            Категории должностей
         </router-link>
     </li>
     <li class="nav-item">
