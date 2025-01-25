@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Position;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Position\GetCategoriesComfortResource;
-use App\Http\Resources\Position\GetCategoriesPositionResource;
+use App\Http\Resources\CategoryComfort\GetCategoriesComfortResource;
+use App\Http\Resources\CategoryPosition\GetCategoriesPositionResource;
 use App\Models\CategoryComfort;
 use App\Models\CategoryPosition;
 

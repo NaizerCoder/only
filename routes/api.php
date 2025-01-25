@@ -44,3 +44,27 @@ Route::group(['namespace' => 'App\Http\Controllers\Position', 'prefix'=>'positio
 //    Route::patch('/{item}', 'UpdateController');
 });
 
+/*CARS*/
+Route::group(['namespace' => 'App\Http\Controllers\Car', 'prefix'=>'car'], function(){
+
+    Route::get('/create','CreateController');
+    Route::post('/', 'StoreController');
+    Route::get('/', 'IndexController');
+//    Route::delete('/{item}', 'DeleteController');
+//    Route::get('/{item}/edit', 'EditController');
+//    Route::patch('/{item}', 'UpdateController');
+});
+
+/*EMPLOYEES*/
+Route::group(['namespace' => 'App\Http\Controllers\Employee', 'prefix'=>'employee'], function(){
+
+ //   Route::get('/create','CreateController');
+  //  Route::post('/', 'StoreController');
+    Route::get('/', 'IndexController');
+//    Route::delete('/{item}', 'DeleteController');
+//    Route::get('/{item}/edit', 'EditController');
+//    Route::patch('/{item}', 'UpdateController');
+});
+
+
+

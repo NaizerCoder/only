@@ -20,9 +20,9 @@ export default VueRouter.createRouter ({
             name: 'positions.index'
         },
         {
-            path: '/users',
-            component: () => import('./views/user/Index.vue'),
-            name: 'users'
+            path: '/employee',
+            component: () => import('./views/employee/Index.vue'),
+            name: 'employee.index'
         },
         {
             path: '/trips',
@@ -32,8 +32,8 @@ export default VueRouter.createRouter ({
 
         {
             path: '/cars',
-            component: () => import('./views/trip/Index.vue'),
-            name: 'cars'
+            component: () => import('./views/car/Index.vue'),
+            name: 'cars.index'
         }
 
 

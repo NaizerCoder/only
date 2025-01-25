@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Position;
+namespace App\Http\Requests\Car;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -23,18 +23,18 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'=>'required|'.Rule::unique('positions', 'title'),
-            'cat_position_id'=>'required',
-            'cat_comfort_ids'=>'nullable',
+            'model'=>'required',
+            'year'=>'required|numeric',
+            'cat_comfort_id'=>'required|numeric',
         ];
     }
 
     public function messages()
     {
         return [
-            'title.required' => 'обязательно для заполнения',
-            'title.unique' => 'такая должность уже существует',
-            'cat_position_id.required' => 'обязательно для заполнения',
+            'model.required' => 'обязательно для заполнения',
+            'year.required' => 'обязательно для заполнения',
+            'cat_comfort_id.required' => 'обязательно для заполнения',
         ];
     }
 }

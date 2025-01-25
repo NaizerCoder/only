@@ -23,13 +23,13 @@
         <div class="modal-dialog modal-lg ">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Добавить должность</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Добавить автомобиль</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <!--Название-->
                     <div class="mb-2">
-                        <input type="text" v-model="title" class="form-control" id="title" placeholder="*Название">
+                        <input type="text" v-model="title" class="form-control" id="title" placeholder="*Модель">
                     </div>
 
                     <div v-if="this.errors.title" class="text-danger" style="margin: -10px 0 0 4px">{{
@@ -37,18 +37,28 @@
                         }}
                     </div>
 
-                    <!--КАТЕГОРИЯ ДОЛЖНОСТИ-->
+                    <!--ГОД-->
+                    <div class="mb-2">
+                        <input type="number" min="2000" max="2099" v-model="year" class="form-control" id="year" placeholder="*Год выпуска">
+                    </div>
+
+                    <div v-if="this.errors.year" class="text-danger" style="margin: -10px 0 0 4px">{{
+                            this.errors.year
+                        }}
+                    </div>
+
+                    <!--КАТЕГОРИЯ КОМФОРТА-->
                     <div class="mb-2">
                         <multiselect
                             id="single-select-object"
-                            v-model="cat_position_id"
+                            v-model="cat_comfort_id"
                             selectLabel="нажмите Enter для добавления"
                             deselectLabel="нажмите Enter для удаления"
-                            placeholder="Категория должности"
+                            placeholder="Категория комфорта"
                             selectedLabel="добавлено"
                             track-by="name"
                             label="name"
-                            :options="categories_position"
+                            :options="categories_comfort"
                             :searchable="false"
                             :allow-empty="false"
                             aria-label="pick a value"
@@ -56,29 +66,11 @@
                         </multiselect>
                     </div>
 
-                    <div v-if="this.errors.cat_position_id" class="text-danger" style="margin: -10px 0 0 4px">{{
-                            this.errors.cat_position_id
+                    <div v-if="this.errors.cat_comfort_id" class="text-danger" style="margin: -10px 0 0 4px">{{
+                            this.errors.cat_comfort_id
                         }}
                     </div>
 
-                    <!--КАТЕГОРИИ КОМФОРТА-->
-                    <div>
-                        <multiselect
-                            id="tagging"
-                            v-model="cat_comfort_data"
-                            selectLabel="нажмите Enter для добавления"
-                            deselectLabel="нажмите Enter для удаления"
-                            placeholder="Категории комфорта"
-                            selectedLabel="добавлено"
-                            label="name"
-                            track-by="code"
-                            :options="categories_comfort"
-                            :multiple="true"
-                            :taggable="true"
-                            :searchable="false"
-                        >
-                        </multiselect>
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="mod_close">Закрыть
@@ -100,7 +92,7 @@
 import Multiselect from 'vue-multiselect'
 
 export default {
-    name: "CreatePosition",
+    name: "CreateCar",
     props: [
         'id',
     ],
@@ -110,15 +102,13 @@ export default {
     data() {
         return {
             title: '',
-            categories_position: [],
+            year: '',
             categories_comfort: [],
-            cat_position_id: '',
-            cat_comfort_data: [],
+            cat_comfort_id: '',
             errors: {
                 title: null,
-                cat_position_id: null,
+                cat_comfort_id: null,
             },
-
         }
     },
     mounted() {
@@ -131,57 +121,49 @@ export default {
         },
         clearData() {
             this.errors.title = null
-            this.errors.cat_position_id = null
+            this.errors.cat_comfort_id = null
+            this.errors.year = null
             this.title = ''
-            this.cat_position_id = ''
-            this.cat_comfort_data = []
+            this.year = ''
+            this.cat_comfort_id = ''
         },
         getCategories() {
-            axios.get('/api/position/create')
+            axios.get('/api/car/create')
                 .then(res => {
-                    console.log(res.data);
-                    res.data.categories_position.forEach((item, index) => {
-                        this.categories_position.push({'name': item.title, 'code': item.id})
-                    })
+                    //console.log(res.data);
                     /*Категории комфорта*/
-                    res.data.categories_comfort.forEach((item, index) => {
+                    res.data.forEach((item, index) => {
                         this.categories_comfort.push({'name': item.title, 'code': item.id})
                     })
                 })
         },
 
         store() {
-            let cat_comfort_ids = []
-            let position_id
+            let comfort_id
 
-            if (this.cat_comfort_data) {
-                this.cat_comfort_data.forEach(item => {
-                    cat_comfort_ids.push(item.code)
-                })
+            if(this.cat_comfort_id.code) {
+                comfort_id = this.cat_comfort_id.code
             }
-
-            if(this.cat_position_id.code) {
-                position_id = this.cat_position_id.code
-            }
-            else position_id = ''
+            else comfort_id = ''
 
             let data = {
-                title: this.title,
-                cat_position_id: position_id,
-                cat_comfort_ids: cat_comfort_ids
+                model: this.title,
+                year: this.year,
+                cat_comfort_id: comfort_id
             }
-            //console.log(data);
+            console.log(data);
 
-            axios.post('/api/position', data)
+            axios.post('/api/car', data)
                 .then(res => {
                     this.closeModal()
-                    this.$parent.getPosition()
+                    this.$parent.getCars()
                 })
                 .catch(error => {
                     if (error.response.data.errors) {
                         //console.log(error.response.data.errors);
-                        this.errors.title = (error.response.data.errors.title) ? error.response.data.errors.title[0] : null
-                        this.errors.cat_position_id = (error.response.data.errors.cat_position_id) ? error.response.data.errors.cat_position_id[0] : null
+                        this.errors.title = (error.response.data.errors.model) ? error.response.data.errors.model[0] : null
+                        this.errors.year = (error.response.data.errors.year) ? error.response.data.errors.year[0] : null
+                        this.errors.cat_comfort_id = (error.response.data.errors.cat_comfort_id) ? error.response.data.errors.cat_comfort_id[0] : null
                     }
                 })
         },
@@ -196,4 +178,5 @@ export default {
     width: 100% !important;
 }
 </style>
+
 
