@@ -2,11 +2,11 @@
 
 namespace App\Http\Resources\Position;
 
+use App\Models\CategoryComfort;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-
-class IndexResource extends JsonResource
+class GetCategoriesPositionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,12 +15,10 @@ class IndexResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $categories_comfort = CategoryComfort::all();
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'category_position' => new \App\Http\Resources\CategoryPosition\IndexResource($this->category_position),
-            'date_created' => $this->created_at->format('d.m.Y'),
-            'category_comfort' => \App\Http\Resources\CategoryComfort\IndexResource::collection($this->cat_comfort),
         ];
     }
 }

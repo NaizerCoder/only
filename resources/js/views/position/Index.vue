@@ -12,6 +12,7 @@
                 <th scope="col">ID</th>
                 <th scope="col">Должность</th>
                 <th scope="col">Категория должности</th>
+                <th scope="col">Категория комфорта</th>
                 <th scope="col">Дата публикации</th>
                 <th scope="col" class="text-center">Действие</th>
             </tr>
@@ -19,10 +20,15 @@
             <tbody>
             <template v-for="position in positions">
                 <tr>
-                    <td>{{position.id}}</td>
-                    <td>{{position.title}}</td>
-                    <td>{{position.category_position.title}}</td>
-                    <td>{{position.date_created}}</td>
+                    <td>{{ position.id }}</td>
+                    <td>{{ position.title }}</td>
+                    <td>{{ position.category_position.title }}</td>
+                    <td>
+                        <div v-for="cat_comfort in position.category_comfort">
+                            {{ cat_comfort.title }}
+                        </div>
+                    </td>
+                    <td>{{ position.date_created }}</td>
                     <td></td>
                 </tr>
             </template>
@@ -56,8 +62,8 @@ export default {
         getPosition() {
             axios.get('/api/position')
                 .then(res => {
+                    console.log(res.data.data)
                     this.positions = res.data.data
-                    console.log(this.position)
                 })
         },
     }

@@ -6,6 +6,7 @@ import store from './store'
 
 import './bootstrap';
 import '../sass/app.scss'
+import 'vue-multiselect/dist/vue-multiselect.min.css'
 
 const app = createApp({
     el: '#app',

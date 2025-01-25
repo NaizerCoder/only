@@ -37,14 +37,33 @@
                         }}
                     </div>
 
-                    <!--КАТЕГОРИЯ-->
-                    <div class="mb-2 w-100">
-                        <Select2 v-model="cat_position_id"
-                                 :options="categories_position"
-                                 :settings="{minimumResultsForSearch: -1}"
-                                 placeholder="Категория должности"
+                    <!--КАТЕГОРИЯ ДОЛЖНОСТИ-->
+<!--                    <div class="mb-2 w-100">-->
+<!--                        <Select2 v-model="cat_position_id"-->
+<!--                                 :options="categories_position"-->
+<!--                                 :settings="{minimumResultsForSearch: -1}"-->
+<!--                                 placeholder="Категория должности"-->
+<!--                        >-->
+<!--                        </Select2>-->
+<!--                    </div>-->
+
+
+                    <div class="mb-2">
+                        <multiselect
+                            id="single-select-object"
+                            v-model="cat_position_id"
+                            selectLabel="нажмите Enter для добавления"
+                            deselectLabel="нажмите Enter для удаления"
+                            placeholder="Категория должности"
+                            selectedLabel="добавлено"
+                            track-by="name"
+                            label="name"
+                            :options="categories_position"
+                            :searchable="false"
+                            :allow-empty="false"
+                            aria-label="pick a value"
                         >
-                        </Select2>
+                        </multiselect>
                     </div>
 
                     <div v-if="this.errors.cat_position_id" class="text-danger" style="margin: -10px 0 0 4px">{{
@@ -52,6 +71,24 @@
                         }}
                     </div>
 
+                    <!--КАТЕГОРИИ КОМФОРТА-->
+                    <div>
+                        <multiselect
+                            id="tagging"
+                            v-model="cat_comfort_data"
+                            selectLabel="нажмите Enter для добавления"
+                            deselectLabel="нажмите Enter для удаления"
+                            placeholder="Категории комфорта"
+                            selectedLabel="добавлено"
+                            label="name"
+                            track-by="code"
+                            :options="categories_comfort"
+                            :multiple="true"
+                            :taggable="true"
+                            :searchable="false"
+                        >
+                        </multiselect>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="mod_close">Закрыть
@@ -70,63 +107,92 @@
 </template>
 
 <script>
-import Select2 from 'vue3-select2-component';
+import Multiselect from 'vue-multiselect'
+import Select2 from 'vue3-select2-component'
+
 export default {
     name: "CreatePosition",
     props: [
         'id',
     ],
     components: {
-        Select2
+        Select2,
+        Multiselect
     },
     data() {
         return {
             title: '',
             categories_position: [],
+            categories_comfort: [],
             cat_position_id: '',
-            cat_comfort_ids: [],
+            cat_comfort_data: [],
             errors: {
                 title: null,
                 cat_position_id: null,
             },
+
+
         }
     },
     mounted() {
-        this.getCategoriesPosition()
-
+        this.getCategories()
     },
 
     methods: {
         closeModal() {
             document.getElementById('mod_close').click();
         },
-        clearData(){
+        clearData() {
             this.errors.title = null
             this.title = ''
         },
-        getCategoriesPosition() {
+        getCategories() {
             axios.get('/api/position/create')
                 .then(res => {
                     console.log(res.data);
-                    // res.data.forEach((item, index) => {
+                    /*Категории должностей*/
+                    // res.data.categories_position.forEach((item, index) => {
                     //     this.categories_position[index] = {
                     //         id: item.id,
                     //         text: item.title,
                     //     }
                     // })
-                    //console.log(this.categories_position);
+                    res.data.categories_position.forEach((item, index) => {
+                        this.categories_position.push({'name': item.title, 'code': item.id})
+                    })
+                    /*Категории комфорта*/
+                    res.data.categories_comfort.forEach((item, index) => {
+                        this.categories_comfort.push({'name': item.title, 'code': item.id})
+                    })
                 })
         },
 
         store() {
+            let cat_comfort_ids = []
+            let position_id
+
+            if (this.cat_comfort_data) {
+                this.cat_comfort_data.forEach(item => {
+                    cat_comfort_ids.push(item.code)
+                })
+            }
+
+            if(this.cat_position_id.code) {
+                position_id = this.cat_position_id.code
+            }
+            else position_id = ''
+
             let data = {
                 title: this.title,
-                cat_position_id: this.cat_position_id,
+                cat_position_id: position_id,
+                cat_comfort_ids: cat_comfort_ids
             }
+            console.log(data);
+
             axios.post('/api/position', data)
                 .then(res => {
-                    this.closeModal()
-                    this.$parent.getPosition()
+                    //this.closeModal()
+                    //this.$parent.getCategories()
                 })
                 .catch(error => {
                     if (error.response.data.errors) {
@@ -135,7 +201,6 @@ export default {
                         this.errors.cat_position_id = (error.response.data.errors.cat_position_id) ? error.response.data.errors.cat_position_id[0] : null
                     }
                 })
-
         },
 
     },
@@ -145,7 +210,7 @@ export default {
 
 <style>
 .select2-container {
-    width: 50% !important;
+    width: 100% !important;
 }
 </style>
 
