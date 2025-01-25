@@ -21,6 +21,7 @@
 
 input, textarea {
     border: 1px solid #ccc !important;
+    background: #ffffff !important;
 }
 input:focus{
     outline: 0 !important;

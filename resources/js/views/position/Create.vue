@@ -23,7 +23,7 @@
         <div class="modal-dialog modal-lg ">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Добавить категорию должности</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Добавить должность</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -37,11 +37,19 @@
                         }}
                     </div>
 
-                    <!--Описание-->
-                    <div class="mb-2 form_data">
-                    <textarea ref="textarea_description" v-model="description" @input="resizeTextareaDesription()"
-                              placeholder='Описание' rows="1">
-                    </textarea>
+                    <!--КАТЕГОРИЯ-->
+                    <div class="mb-2 w-100">
+                        <Select2 v-model="cat_position_id"
+                                 :options="categories_position"
+                                 :settings="{minimumResultsForSearch: -1}"
+                                 placeholder="Категория должности"
+                        >
+                        </Select2>
+                    </div>
+
+                    <div v-if="this.errors.cat_position_id" class="text-danger" style="margin: -10px 0 0 4px">{{
+                            this.errors.cat_position_id
+                        }}
                     </div>
 
                 </div>
@@ -62,32 +70,33 @@
 </template>
 
 <script>
-
+import Select2 from 'vue3-select2-component';
 export default {
-    name: "CreateCategoryPosition",
+    name: "CreatePosition",
     props: [
         'id',
     ],
     components: {
-
+        Select2
     },
     data() {
         return {
             title: '',
-            description: '',
+            categories_position: [],
+            cat_position_id: '',
+            cat_comfort_ids: [],
             errors: {
                 title: null,
+                cat_position_id: null,
             },
         }
     },
     mounted() {
+        this.getCategoriesPosition()
+
     },
 
     methods: {
-        resizeTextareaDesription() {
-            this.$refs.textarea_description.style.height = "auto";
-            this.$refs.textarea_description.style.height = `${this.$refs.textarea_description.scrollHeight}px`;
-        },
         closeModal() {
             document.getElementById('mod_close').click();
         },
@@ -95,20 +104,35 @@ export default {
             this.errors.title = null
             this.title = ''
         },
+        getCategoriesPosition() {
+            axios.get('/api/position/create')
+                .then(res => {
+                    console.log(res.data);
+                    // res.data.forEach((item, index) => {
+                    //     this.categories_position[index] = {
+                    //         id: item.id,
+                    //         text: item.title,
+                    //     }
+                    // })
+                    //console.log(this.categories_position);
+                })
+        },
+
         store() {
             let data = {
                 title: this.title,
-                description: this.description,
+                cat_position_id: this.cat_position_id,
             }
-            axios.post('/api/category_position', data)
+            axios.post('/api/position', data)
                 .then(res => {
                     this.closeModal()
-                    this.$parent.getCategories()
+                    this.$parent.getPosition()
                 })
                 .catch(error => {
                     if (error.response.data.errors) {
-                        //console.log(error.response.data.errors);
+                        console.log(error.response.data.errors);
                         this.errors.title = (error.response.data.errors.title) ? error.response.data.errors.title[0] : null
+                        this.errors.cat_position_id = (error.response.data.errors.cat_position_id) ? error.response.data.errors.cat_position_id[0] : null
                     }
                 })
 
@@ -120,18 +144,8 @@ export default {
 </script>
 
 <style>
-.form_data textarea {
-    resize: none;
-    box-sizing: border-box;
-    width: 100%;
-    min-height: 50px;
-    max-height: 150px;
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-    padding: 0.5rem;
-    border-radius: 0.25rem;
-
+.select2-container {
+    width: 50% !important;
 }
 </style>
 

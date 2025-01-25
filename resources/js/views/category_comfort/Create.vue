@@ -23,7 +23,7 @@
         <div class="modal-dialog modal-lg ">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Добавить категорию должности</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Добавить категорию комфорта</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -64,7 +64,7 @@
 <script>
 
 export default {
-    name: "CreateCategoryPosition",
+    name: "CreateCategoryComfort",
     props: [
         'id',
     ],
@@ -100,7 +100,7 @@ export default {
                 title: this.title,
                 description: this.description,
             }
-            axios.post('/api/category_position', data)
+            axios.post('/api/category_comfort', data)
                 .then(res => {
                     this.closeModal()
                     this.$parent.getCategories()

@@ -22,11 +22,25 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 /*CATEGORY POSITION*/
 Route::group(['namespace' => 'App\Http\Controllers\CategoryPosition', 'prefix'=>'category_position'], function(){
 
-//    Route::get('/create','CreateController');
     Route::post('/', 'StoreController');
     Route::get('/', 'IndexController');
-//    Route::post('/search', 'SearchTagController');
+});
+
+/*CATEGORY COMFORT*/
+Route::group(['namespace' => 'App\Http\Controllers\CategoryComfort', 'prefix'=>'category_comfort'], function(){
+
+    Route::post('/', 'StoreController');
+    Route::get('/', 'IndexController');
+});
+
+/*POSITION*/
+Route::group(['namespace' => 'App\Http\Controllers\Position', 'prefix'=>'position'], function(){
+
+    Route::get('/create','CreateController');
+    Route::post('/', 'StoreController');
+    Route::get('/', 'IndexController');
 //    Route::delete('/{item}', 'DeleteController');
 //    Route::get('/{item}/edit', 'EditController');
 //    Route::patch('/{item}', 'UpdateController');
 });
+

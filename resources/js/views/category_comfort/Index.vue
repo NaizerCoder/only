@@ -1,9 +1,9 @@
 <template>
-    <CreateCategoryPosition
+    <CreateCategoryComfort
         id="create_cat"
         ref="modal_create_cat"
     >
-    </CreateCategoryPosition>
+    </CreateCategoryComfort>
 
     <div>
         <table class="table table-hover text-nowrap text-justify">
@@ -35,12 +35,14 @@
 </template>
 
 <script>
-import CreateCategoryPosition from "./Create.vue";
+//import CreateCategoryPosition from "./Create.vue";
+
+import CreateCategoryComfort from "@/views/category_comfort/Create.vue";
 
 export default {
-    name: "CategoryPosition",
+    name: "CategoryComfort",
     components: {
-        CreateCategoryPosition,
+        CreateCategoryComfort
     },
     data() {
         return {
@@ -49,19 +51,18 @@ export default {
     },
 
     mounted() {
-        this.$store.commit('setTitle', 'Категории должностей')
+        this.$store.commit('setTitle', 'Категории комфорта')
         this.getCategories()
     },
 
     methods: {
         getCategories() {
-            axios.get('/api/category_position')
+            axios.get('/api/category_comfort')
                 .then(res => {
                     this.categories = res.data.data
                 })
         },
     }
-
 
 }
 </script>
@@ -69,3 +70,4 @@ export default {
 <style scoped>
 
 </style>
+

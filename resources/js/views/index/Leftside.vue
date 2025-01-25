@@ -12,7 +12,7 @@
         </router-link>
     </li>
     <li class="nav-item">
-        <router-link :to="{ name: 'positions' }" class="nav-link">
+        <router-link :to="{ name: 'positions.index' }" class="nav-link">
           <i class="nav-icon fas fa-sitemap"></i>
             Должности
         </router-link>
@@ -30,7 +30,7 @@
         </router-link>
     </li>
     <li class="nav-item">
-        <router-link :to="{ name: 'category.comfort' }" class="nav-link">
+        <router-link :to="{ name: 'cat_comfort.index' }" class="nav-link">
           <i class="nav-icon fas fa-star"></i>
             Категории комфорта
         </router-link>
