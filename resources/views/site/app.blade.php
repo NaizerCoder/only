@@ -23,7 +23,6 @@
     <!-- Daterange picker -->
     {{--    <link rel="stylesheet" href="{{asset('plugins/daterangepicker/daterangepicker.css')}}">--}}
 
-
     @vite(['resources/js/app.js', 'resources/css/app.css'])
 
 </head>
@@ -65,7 +64,6 @@
 <script src="{{asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('dist/js/adminlte.js')}}"></script>
-
 
 </body>
 </html>

@@ -67,7 +67,9 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style>
+.modal.fade {
+    transition: opacity 0.15s linear;
+}
 </style>
 
