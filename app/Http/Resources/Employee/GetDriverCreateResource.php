@@ -2,12 +2,11 @@
 
 namespace App\Http\Resources\Employee;
 
-use App\Http\Resources\Position\GetPositionResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 
-class IndexResource extends JsonResource
+class GetDriverCreateResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -21,8 +20,7 @@ class IndexResource extends JsonResource
             'surname' => $this->surname,
             'name' => $this->name,
             'patronymic' => $this->patronymic,
-            'position' => new GetPositionResource($this->Position),
-            'date_created' => $this->created_at->format('d.m.Y'),
+            'position' => $this->position,
         ];
     }
 }

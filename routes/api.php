@@ -52,15 +52,19 @@ Route::group(['namespace' => 'App\Http\Controllers\Car', 'prefix'=>'car'], funct
     Route::get('/', 'IndexController');
 //    Route::delete('/{item}', 'DeleteController');
 //    Route::get('/{item}/edit', 'EditController');
-//    Route::patch('/{item}', 'UpdateController');
+
+    Route::group(['namespace' => 'Driver', 'prefix' => 'driver'], function () {
+        Route::patch('/{car}', 'UpdateDriverController');
+    });
 });
 
 /*EMPLOYEES*/
 Route::group(['namespace' => 'App\Http\Controllers\Employee', 'prefix'=>'employee'], function(){
 
- //   Route::get('/create','CreateController');
-  //  Route::post('/', 'StoreController');
+    Route::get('/create','CreateController');
+    Route::post('/', 'StoreController');
     Route::get('/', 'IndexController');
+    Route::get('/drivers', 'GetDriverController');
 //    Route::delete('/{item}', 'DeleteController');
 //    Route::get('/{item}/edit', 'EditController');
 //    Route::patch('/{item}', 'UpdateController');

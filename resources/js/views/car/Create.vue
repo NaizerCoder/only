@@ -151,7 +151,7 @@ export default {
                 year: this.year,
                 cat_comfort_id: comfort_id
             }
-            console.log(data);
+            //console.log(data);
 
             axios.post('/api/car', data)
                 .then(res => {

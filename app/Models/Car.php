@@ -22,4 +22,8 @@ class Car extends Model
     public function catComfort(){
         return $this->belongsTo( CategoryComfort::class, 'cat_comfort_id', 'id');
     }
+
+    public function driver(){
+        return $this->belongsTo( Employee::class, 'driver_id', 'id');
+    }
 }

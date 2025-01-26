@@ -21,7 +21,7 @@ class Employee extends Model
         );
     }
 
-    public function catPosition(){
+    public function Position(){
         return $this->belongsTo( Position::class, 'position_id', 'id');
     }
 }

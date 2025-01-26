@@ -17,6 +17,7 @@ class GetPositionResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            //'category_position' => new \App\Http\Resources\CategoryPosition\IndexResource($this->catPosition),
         ];
     }
 }

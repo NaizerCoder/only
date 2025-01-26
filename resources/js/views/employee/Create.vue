@@ -61,14 +61,14 @@
                     <div class="mb-2">
                         <multiselect
                             id="single-select-object"
-                            v-model="cat_comfort_id"
+                            v-model="position_id"
                             selectLabel="нажмите Enter для добавления"
                             deselectLabel="нажмите Enter для удаления"
-                            placeholder="Категория комфорта"
+                            placeholder="Категория должности"
                             selectedLabel="добавлено"
                             track-by="name"
                             label="name"
-                            :options="categories_comfort"
+                            :options="positions"
                             :searchable="false"
                             :allow-empty="false"
                             aria-label="pick a value"
@@ -76,8 +76,8 @@
                         </multiselect>
                     </div>
 
-                    <div v-if="this.errors.cat_comfort_id" class="text-danger" style="margin: -10px 0 0 4px">{{
-                            this.errors.cat_comfort_id
+                    <div v-if="this.errors.position_id" class="text-danger" style="margin: -10px 0 0 4px">{{
+                            this.errors.position_id
                         }}
                     </div>
 
@@ -115,8 +115,7 @@ export default {
             surname: '',
             patronymic: '',
             positions: [],
-            categories_comfort: [], //?
-            cat_comfort_id: '', //?
+            position_id:[],
             errors: {
                 surname: null,
                 name: null,
@@ -134,56 +133,60 @@ export default {
             document.getElementById('mod_close').click();
         },
         clearData() {
-            // this.errors.title = null
-            // this.errors.cat_comfort_id = null
-            // this.errors.year = null
-            // this.title = ''
-            // this.year = ''
-            // this.cat_comfort_id = ''
+            this.surname = null
+            this.name = null
+            this.patronymic = null
+            this.position_id = null
+            this.errors.surname = null
+            this.errors.name = null
+            this.errors.patronymic = null
+            this.errors.position_id = null
+
         },
         getPositions() {
             axios.get('/api/employee/create')
                 .then(res => {
                     //console.log(res.data);
                     /*Должности*/
-                    // res.data.forEach((item, index) => {
-                    //     this.positions.push({'name': item.title, 'code': item.id})
-                    // })
+                    res.data.forEach((item, index) => {
+                        this.positions.push({'name': item.title, 'code': item.id})
+                    })
                 })
         },
 
         store() {
-            // let comfort_id
-            //
-            // if(this.cat_comfort_id.code) {
-            //     comfort_id = this.cat_comfort_id.code
-            // }
-            // else comfort_id = ''
-            //
-            // let data = {
-            //     model: this.title,
-            //     year: this.year,
-            //     cat_comfort_id: comfort_id
-            // }
+            let position_id
+
+            if(this.position_id.code) {
+                position_id = this.position_id.code
+            }
+            else position_id = ''
+
+            let data = {
+                surname: this.surname,
+                name: this.name,
+                patronymic: this.patronymic,
+                position_id: position_id
+            }
             // console.log(data);
             //
-            // axios.post('/api/car', data)
-            //     .then(res => {
-            //         this.closeModal()
-            //         this.$parent.getCars()
-            //     })
-            //     .catch(error => {
-            //         if (error.response.data.errors) {
-            //             //console.log(error.response.data.errors);
-            //             this.errors.title = (error.response.data.errors.model) ? error.response.data.errors.model[0] : null
-            //             this.errors.year = (error.response.data.errors.year) ? error.response.data.errors.year[0] : null
-            //             this.errors.cat_comfort_id = (error.response.data.errors.cat_comfort_id) ? error.response.data.errors.cat_comfort_id[0] : null
-            //         }
-            //     })
+            axios.post('/api/employee', data)
+                .then(res => {
+                    this.closeModal()
+                    this.$parent.getEmployees()
+                })
+                .catch(error => {
+                    if (error.response.data.errors) {
+                        //console.log(error.response.data.errors);
+                        this.errors.surname = (error.response.data.errors.surname) ? error.response.data.errors.surname[0] : null
+                        this.errors.name = (error.response.data.errors.name) ? error.response.data.errors.name[0] : null
+                        this.errors.patronymic = (error.response.data.errors.patronymic) ? error.response.data.errors.patronymic[0] : null
+                        this.errors.position_id = (error.response.data.errors.position_id) ? error.response.data.errors.position_id[0] : null
+                    }
+                })
         },
 
     },
-
 }
 </script>
 
