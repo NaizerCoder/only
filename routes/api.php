@@ -65,6 +65,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Employee', 'prefix'=>'employe
     Route::post('/', 'StoreController');
     Route::get('/', 'IndexController');
     Route::get('/drivers', 'GetDriverController');
+    Route::post('/car', 'GetCarsEmployeeController');
 //    Route::delete('/{item}', 'DeleteController');
 //    Route::get('/{item}/edit', 'EditController');
 //    Route::patch('/{item}', 'UpdateController');
@@ -73,7 +74,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Employee', 'prefix'=>'employe
 /*TRIPS*/
 Route::group(['namespace' => 'App\Http\Controllers\Trip', 'prefix'=>'trip'], function(){
 
-//    Route::get('/create','CreateController');
+    Route::get('/create','CreateController');
 //    Route::post('/', 'StoreController');
     Route::get('/', 'IndexController');
 //    Route::delete('/{item}', 'DeleteController');

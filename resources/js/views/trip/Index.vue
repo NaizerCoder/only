@@ -1,9 +1,9 @@
 <template>
-    <!--    <CreateCar-->
-    <!--        id="create_car"-->
-    <!--        ref="modal_create_car"-->
-    <!--    >-->
-    <!--    </CreateCar>-->
+        <CreateTrip
+            id="create_trip"
+            ref="modal_create_trip"
+        >
+        </CreateTrip>
 
     <div>
         <table class="table table-hover text-nowrap text-justify">
@@ -38,10 +38,11 @@
 
 <script>
 
+import CreateTrip from "./Create.vue";
 
 export default {
     name: "Car",
-    components: {},
+    components: {CreateTrip},
     data() {
         return {
             trips: '',

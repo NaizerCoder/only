@@ -21,7 +21,7 @@ class GetDriverController extends Controller
             ->join('positions', 'employees.position_id', '=', 'positions.id')
             ->join('categories_position', 'categories_position.id', '=', 'positions.cat_position_id')
             ->whereNull('cars.model')
-            ->where('categories_position.id','=', 2)
+            ->where('categories_position.title','=', 'водители')
             ->select(
                 'employees.id',
                 'employees.surname',
