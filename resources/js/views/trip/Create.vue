@@ -96,6 +96,45 @@
                         }}
                     </div>
 
+                    <!--CHECK FREE CARS-->
+                    <div v-if="check.button">
+                        <a
+                            class="btn btn-secondary btn-sm mb-2"
+                            @click.prevent="checkFreeCars"
+                        >
+                            проверить свободные автомобили
+                        </a>
+                    </div>
+
+                    <!--FREE CARS-->
+                    <div v-if="check.free_cars">
+                        <div class="mb-1">
+                            <span class="font-weight-bold">Доступные автомобили</span>
+                        </div>
+
+                        <table class="table table-hover text-nowrap text-justify">
+                            <thead>
+                            <tr>
+                                <th scope="col">Модель</th>
+                                <th scope="col">Категория комфорта</th>
+                                <th scope="col">Год выпуска</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <template v-for="car in cars">
+                                <tr>
+                                    <td>{{car.model}}</td>
+                                    <td>{{car.comfort}}</td>
+                                    <td>{{car.year}}</td>
+                                </tr>
+                            </template>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="mod_close">Закрыть
@@ -144,12 +183,14 @@ export default {
             },
             errors: {
                 date_trip: ''
-            }
+            },
+            check:{
+                button: false,
+                free_cars: false
+            },
+            cars: ''
         }
     },
-    mounted() {
-    },
-
     methods: {
         closeModal() {
             document.getElementById('mod_close').click();
@@ -174,60 +215,59 @@ export default {
                     })
                 })
         },
-        selectEmployees(){
+        selectEmployees() {
             this.date_start.style.border_danger = false
             this.date_start.style.border_success = true
             this.$refs['date_start'].readOnly = false
         },
 
-        eventDateStart(){
-            if(this.date_start.data){
+        eventDateStart() {
+            if (this.date_start.data) {
                 this.date_end.style.border_danger = false
                 this.date_end.style.border_success = true
                 this.$refs['date_end'].readOnly = false
-            }
-            else{
+            } else {
+                //если не заполнено поле даты начала
                 this.date_end.style.border_danger = true
                 this.date_end.style.border_success = false
                 this.$refs['date_end'].readOnly = true
 
                 this.date_end.data = ''
+                this.check.button = false
             }
         },
-        eventDateEnd(){
-            if(this.date_end.data){
+        eventDateEnd() {
+            if (this.date_end.data) {
                 const dateStart = new Date(this.date_start.data)
                 const dateEnd = new Date(this.date_end.data)
 
                 if (dateStart.getTime() >= dateEnd.getTime()) {
                     this.errors.date_trip = 'Дата завершения поездки не может совпадать или быть раньше даты начала'
-                }
-                else{
+                } else {
                     this.errors.date_trip = ''
-                    this.getCars(this.employee_id.code, dateStart.getTime(), dateEnd.getTime())
+                    this.check.button = true
                 }
-            }
-            else {
+            } else {
                 //если не заполнено поле даты окончания
+                this.check.button = false
+
             }
         },
-        getCars(id, dateStart, dateEnd){
-             const data = {
-                id: id,
-                date_start: dateStart,
-                date_end: dateEnd
+        checkFreeCars() {
+            const data = {
+                id: this.employee_id.code,
+                date_start: this.date_start.data,
+                date_end: this.date_end.data
             }
-
             axios.post(`/api/employee/car`, data)
                 .then(res => {
-                    // console.log(res.data);
-                    // /*Свободные водители*/
-                    // res.data.forEach((item, index) => {
-                    //     fio_drivers = item.surname + ' ' + item.name + ' ' + item.patronymic
-                    //     this.drivers.push({'name': fio_drivers, 'code': item.id})
-                    // })
+                    console.log(res.data);
+                    this.check.free_cars = true
+                    /*Свободные автомобили*/
+                    this.cars = res.data
                 })
         },
+
 
         store() {
 
