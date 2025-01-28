@@ -27,7 +27,12 @@
                     <td>{{trip.date_start}}</td>
                     <td>{{trip.date_end}}</td>
                     <td>{{trip.status}}</td>
-                    <td></td>
+                    <td v-if="trip.status === 'open'" class="text-center">
+                        <button @click.prevent="updateStatus(trip.id)" class="btn btn-danger btn-sm">завершить поездку</button>
+                    </td>
+                    <td v-if="trip.status === 'closed'" class="text-center text-success">
+                       поездка завершена
+                    </td>
                 </tr>
             </template>
             </tbody>
@@ -61,6 +66,18 @@ export default {
                     console.log(res.data.data)
                     this.trips = res.data.data
                 })
+        },
+        updateStatus(id) {
+            let data = {
+                status: 'closed'
+            }
+
+            axios.patch(`/api/trip/${id}`, data)
+                .then(res => {
+                    this.getTrips()
+                })
+
+
         },
 
     }

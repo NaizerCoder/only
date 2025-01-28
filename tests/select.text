@@ -1,0 +1,29 @@
+ЗАНЯТЫ
+Если здесь будет пусто, то все авто свободны, иначе собрать все car_id и проверить их наличие в списке всех авто.
+Т.о. тот ID который встретится, то машина занята.
+Исключить из массива ALL_CARS определенные ключи (список)
+
+SELECT * FROM employees
+JOIN positions ON employees.position_id = positions.id
+JOIN cat_comfort_position ON positions.id = cat_comfort_position.position_id
+JOIN cars ON cars.cat_comfort_id = cat_comfort_position.cat_comfort_id
+JOIN categories_comfort ON cars.cat_comfort_id = categories_comfort.id
+left JOIN trips ON trips.car_id = cars.id
+WHERE employees.id = 6
+AND (
+    trips.date_start  BETWEEN '2025-01-28T10:00' AND '2025-01-29T12:00' OR trips.date_end  BETWEEN '2025-01-28T10:00' AND '2025-01-29T12:00'
+    AND
+    trips.status != 'null'
+    AND
+    trips.status != 'closed'
+)
+
+
+ВСЕ МАШИНЫ
+
+SELECT * FROM employees
+JOIN positions ON employees.position_id = positions.id
+JOIN cat_comfort_position ON positions.id = cat_comfort_position.position_id
+JOIN cars ON cars.cat_comfort_id = cat_comfort_position.cat_comfort_id
+JOIN categories_comfort ON cars.cat_comfort_id = categories_comfort.id
+WHERE employees.id = 6

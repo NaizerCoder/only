@@ -17,16 +17,15 @@ class GetCarsEmployeeResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
+            'employee_id' => $this->employee_id,
             'surname' => $this->surname,
             'name' => $this->name,
             'patronymic' => $this->patronymic,
             'model' => $this->model,
             'cat_comfort_id' => $this->cat_comfort_id,
-            'comfort' => $this->comfort,
-            'date_start' => $this->date_start,
-            'date_end' => $this->date_end,
-            'status' => $this->status,
+            'car_id' => $this->car_id,
+            'car_year' => $this->car_year,
+            //'comfort' => $this->comfort,
         ];
     }
 }

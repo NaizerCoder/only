@@ -115,22 +115,45 @@
                         <table class="table table-hover text-nowrap text-justify">
                             <thead>
                             <tr>
-                                <th scope="col">Модель</th>
+                                <th scope="col" style="width: 20%">Модель</th>
                                 <th scope="col">Категория комфорта</th>
                                 <th scope="col">Год выпуска</th>
+                                <th scope="col">Рег.номер</th>
+                                <th scope="col">Выбор</th>
                             </tr>
                             </thead>
                             <tbody>
                             <template v-for="car in cars">
                                 <tr>
-                                    <td>{{car.model}}</td>
-                                    <td>{{car.comfort}}</td>
-                                    <td>{{car.year}}</td>
+                                    <td>{{ car.model }}</td>
+                                    <td>{{ car.comfort }}</td>
+                                    <td>{{ car.car_year }}</td>
+                                    <td></td>
+                                    <td>
+                                        <input type="radio"
+                                               v-bind:value="{
+                                                        employee_id: car.employee_id,
+                                                        car_id: car.car_id,
+                                                        date_start: this.date_start.data,
+                                                        date_end: this.date_end.data,
+                                                     }"
+                                               v-model="data"
+                                        >
+                                    </td>
                                 </tr>
-                            </template>
 
+                            </template>
                             </tbody>
                         </table>
+                        <div v-if="cars.length === 0">
+                            свободных автомобилей на заданные даты нет
+                        </div>
+
+                        <div v-if="this.errors.data" class="text-danger" style="margin: -10px 0 0 4px">{{
+                                this.errors.data
+                            }}
+                        </div>
+
 
                     </div>
 
@@ -144,7 +167,7 @@
                         type="button"
                         class="btn btn-primary"
                     >
-                        Добавить
+                        Оформить
                     </button>
                 </div>
             </div>
@@ -182,13 +205,15 @@ export default {
                 }
             },
             errors: {
-                date_trip: ''
+                date_trip: '',
+                data: ''
             },
-            check:{
+            check: {
                 button: false,
                 free_cars: false
             },
-            cars: ''
+            cars: '',
+            data: ''
         }
     },
     methods: {
@@ -196,12 +221,18 @@ export default {
             document.getElementById('mod_close').click();
         },
         clearData() {
-
+            // this.employee_id = ''
+            // this.date_start.data = ''
+            // this.date_end.data = ''
+            // this.errors.data = ''
+            // this.errors.ate_trip = ''
+            // this.cars = ''
+            // this.check.button = false
+            // this.check.free_cars = false
         },
         actionTrip() {
             this.clearData()
             this.getEmployees()
-
         },
         getEmployees() {
             let fio_employees
@@ -270,6 +301,16 @@ export default {
 
 
         store() {
+            if (this.data) {
+                this.errors.data = ''
+                axios.post(`/api/trip`, this.data)
+                    .then(res => {
+                        this.closeModal()
+                        this.$parent.getTrips()
+                    })
+            } else {
+                this.errors.data = 'необходимо выбрать автомобиль'
+            }
 
         },
 
