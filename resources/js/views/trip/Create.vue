@@ -146,7 +146,7 @@
                         <div v-if="cars.length === 0">
                             свободных автомобилей на заданные даты нет
                         </div>
-{{data}}
+
                         <div v-if="this.errors.data" class="text-danger" style="margin: -10px 0 0 4px">{{
                                 this.errors.data
                             }}

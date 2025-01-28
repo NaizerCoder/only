@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 
-class GetCarsEmployeeResource extends JsonResource
+class ApiResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,7 +18,7 @@ class GetCarsEmployeeResource extends JsonResource
     {
         return [
             'employee_id' => $this->employee_id,
-//            'surname' => $this->surname,
+            'surname' => $this->surname,
 //            'name' => $this->name,
 //            'patronymic' => $this->patronymic,
             'model' => $this->model,
