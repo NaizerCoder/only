@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Employee;
+namespace App\Http\Resources\API_GET_CARS;
 
 use App\Http\Resources\CategoryComfort\GetCategoriesComfortResource;
 use Illuminate\Http\Request;

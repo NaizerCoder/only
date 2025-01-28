@@ -118,7 +118,6 @@
                                 <th scope="col" style="width: 20%">Модель</th>
                                 <th scope="col">Категория комфорта</th>
                                 <th scope="col">Год выпуска</th>
-                                <th scope="col">Рег.номер</th>
                                 <th scope="col">Выбор</th>
                             </tr>
                             </thead>
@@ -128,7 +127,6 @@
                                     <td>{{ car.model }}</td>
                                     <td>{{ car.comfort }}</td>
                                     <td>{{ car.car_year }}</td>
-                                    <td></td>
                                     <td>
                                         <input type="radio"
                                                v-bind:value="{
@@ -148,7 +146,7 @@
                         <div v-if="cars.length === 0">
                             свободных автомобилей на заданные даты нет
                         </div>
-
+{{data}}
                         <div v-if="this.errors.data" class="text-danger" style="margin: -10px 0 0 4px">{{
                                 this.errors.data
                             }}

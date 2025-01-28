@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Employee;
+namespace App\Http\Controllers\API_GET_CARS;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Employee\GetCarsEmployeeRequest;
-use App\Http\Resources\Employee\GetCarsEmployeeResource;
+use App\Http\Requests\API_GET_CARS\ApiRequest;
+use App\Http\Resources\API_GET_CARS\ApiResource;
 use Illuminate\Support\Facades\DB;
 
-class GetCarsEmployeeController extends Controller
+class ApiController extends Controller
 {
     public function __invoke(GetCarsEmployeeRequest $request)
     {
@@ -19,8 +19,8 @@ class GetCarsEmployeeController extends Controller
             ->join ('cars', 'cars.cat_comfort_id','=','cat_comfort_position.cat_comfort_id')
             ->join ('categories_comfort', 'cars.cat_comfort_id','=','categories_comfort.id')
             ->where('employees.id', '=', $data['id'])
-            //->where('categories_comfort.id', '=', '3')
-            //->where('cars.model', '=', 'Audi Q3')
+            ->where('categories_comfort.id', '=', $data['category_id'])
+            ->where('cars.model', '=', $data['model'])
             ->select(
                 'employees.id as employee_id',
                 'cars.model',

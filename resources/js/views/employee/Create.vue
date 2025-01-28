@@ -115,7 +115,7 @@ export default {
             surname: '',
             patronymic: '',
             positions: [],
-            position_id:[],
+            position_id:'',
             errors: {
                 surname: null,
                 name: null,
@@ -136,7 +136,6 @@ export default {
             this.surname = null
             this.name = null
             this.patronymic = null
-            this.position_id = null
             this.errors.surname = null
             this.errors.name = null
             this.errors.patronymic = null
@@ -146,7 +145,7 @@ export default {
         getPositions() {
             axios.get('/api/employee/create')
                 .then(res => {
-                    //console.log(res.data);
+                    console.log(res.data);
                     /*Должности*/
                     res.data.forEach((item, index) => {
                         this.positions.push({'name': item.title, 'code': item.id})
