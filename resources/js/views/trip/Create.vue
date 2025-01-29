@@ -220,6 +220,7 @@ export default {
         },
         clearData() {
             this.employee_id = ''
+            this.employees = []
             this.date_start.data = ''
             this.date_end.data = ''
             this.errors.data = ''
