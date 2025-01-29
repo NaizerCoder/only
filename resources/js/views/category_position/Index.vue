@@ -13,7 +13,6 @@
                 <th scope="col">Категория</th>
                 <th scope="col">Описание</th>
                 <th scope="col">Дата публикации</th>
-                <th scope="col" class="text-center">Действие</th>
             </tr>
             </thead>
             <tbody>
@@ -23,7 +22,6 @@
                     <td>{{ category.title }}</td>
                     <td>{{ category.description }}</td>
                     <td>{{ category.date_created }}</td>
-                    <td></td>
                 </tr>
 
             </template>

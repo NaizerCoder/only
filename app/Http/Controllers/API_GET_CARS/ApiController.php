@@ -22,19 +22,18 @@ class ApiController extends Controller
             $data['category_id'] = false;
         }
 
-        //dd($data);
-
         $carAll = DB::table('employees')
             ->join('positions', 'employees.position_id', '=', 'positions.id')
             ->join('cat_comfort_position', 'positions.id', '=', 'cat_comfort_position.position_id')
             ->join ('cars', 'cars.cat_comfort_id','=','cat_comfort_position.cat_comfort_id')
             ->join ('categories_comfort', 'cars.cat_comfort_id','=','categories_comfort.id')
 
-            ->when($data, function ($query, $data) {
+            ->when($data['category_id'], function ($query) use ($data) {
                 return $query->where('categories_comfort.id', $data['category_id']);
             })
-            ->when($data, function ($query,$data) {
-                return $query->where('cars.model', $data['model']);
+
+            ->when($data['model'], function ($query) use ($data) {
+                return $query->where('cars.model', 'LIKE', "%{$data['model']}%");
             })
 
             ->where('employees.id', '=', $data['employee_id'])

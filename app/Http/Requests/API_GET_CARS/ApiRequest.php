@@ -22,11 +22,11 @@ class ApiRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'employee_id'=>'',
-            'date_start'=>'',
-            'date_end'=>'',
-            'category_id'=>'',
-            'model'=>'',
+            'employee_id'=>'required',
+            'date_start'=>'required',
+            'date_end'=>'required',
+            'category_id'=>'nullable',
+            'model'=>'nullable',
 
         ];
     }

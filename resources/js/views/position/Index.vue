@@ -14,7 +14,6 @@
                 <th scope="col">Категория должности</th>
                 <th scope="col">Категория комфорта</th>
                 <th scope="col">Дата публикации</th>
-                <th scope="col" class="text-center">Действие</th>
             </tr>
             </thead>
             <tbody>
@@ -29,7 +28,6 @@
                         </div>
                     </td>
                     <td>{{ position.date_created }}</td>
-                    <td></td>
                 </tr>
             </template>
             </tbody>

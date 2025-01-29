@@ -219,14 +219,14 @@ export default {
             document.getElementById('mod_close').click();
         },
         clearData() {
-            // this.employee_id = ''
-            // this.date_start.data = ''
-            // this.date_end.data = ''
-            // this.errors.data = ''
-            // this.errors.ate_trip = ''
-            // this.cars = ''
-            // this.check.button = false
-            // this.check.free_cars = false
+            this.employee_id = ''
+            this.date_start.data = ''
+            this.date_end.data = ''
+            this.errors.data = ''
+            this.errors.ate_trip = ''
+            this.cars = ''
+            this.check.button = false
+            this.check.free_cars = false
         },
         actionTrip() {
             this.clearData()
@@ -236,7 +236,7 @@ export default {
             let fio_employees
             axios.get('/api/trip/create')
                 .then(res => {
-                    console.log(res.data);
+                    //console.log(res.data);
                     /*Все сотрудники кроме водителей*/
                     res.data.forEach((item, index) => {
                         fio_employees = item.surname + ' ' + item.name + ' ' + item.patronymic
@@ -290,7 +290,7 @@ export default {
             }
             axios.post(`/api/employee/car`, data)
                 .then(res => {
-                    console.log(res.data);
+                    //console.log(res.data);
                     this.check.free_cars = true
                     /*Свободные автомобили*/
                     this.cars = res.data

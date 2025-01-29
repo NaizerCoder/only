@@ -15,7 +15,6 @@
                 <th scope="col">Отчество</th>
                 <th scope="col">Должность</th>
                 <th scope="col">Дата создания</th>
-                <th scope="col" class="text-center">Действие</th>
             </tr>
             </thead>
             <tbody>
@@ -27,7 +26,6 @@
                     <td>{{employee.patronymic}}</td>
                     <td>{{employee.position.title}}</td>
                     <td>{{employee.date_created}}</td>
-                    <td></td>
                 </tr>
             </template>
             </tbody>
