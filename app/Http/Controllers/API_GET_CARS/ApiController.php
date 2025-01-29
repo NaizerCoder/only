@@ -40,6 +40,8 @@ class ApiController extends Controller
             ->select(
                 'employees.id as employee_id',
                 'employees.surname',
+                'employees.name',
+                'employees.patronymic',
                 'cars.model',
                 'cars.id as car_id',
                 'cars.year as car_year',

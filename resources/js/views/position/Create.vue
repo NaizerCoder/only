@@ -139,7 +139,7 @@ export default {
         getCategories() {
             axios.get('/api/position/create')
                 .then(res => {
-                    console.log(res.data);
+                    //console.log(res.data);
                     res.data.categories_position.forEach((item, index) => {
                         this.categories_position.push({'name': item.title, 'code': item.id})
                     })

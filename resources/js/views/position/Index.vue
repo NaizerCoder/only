@@ -60,7 +60,7 @@ export default {
         getPosition() {
             axios.get('/api/position')
                 .then(res => {
-                    console.log(res.data.data)
+                    //console.log(res.data.data)
                     this.positions = res.data.data
                 })
         },

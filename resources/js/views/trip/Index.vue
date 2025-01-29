@@ -63,7 +63,7 @@ export default {
         getTrips() {
             axios.get('/api/trip')
                 .then(res => {
-                    console.log(res.data.data)
+                    //console.log(res.data.data)
                     this.trips = res.data.data
                 })
         },

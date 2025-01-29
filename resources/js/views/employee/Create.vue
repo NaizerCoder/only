@@ -145,7 +145,7 @@ export default {
         getPositions() {
             axios.get('/api/employee/create')
                 .then(res => {
-                    console.log(res.data);
+                    //console.log(res.data);
                     /*Должности*/
                     res.data.forEach((item, index) => {
                         this.positions.push({'name': item.title, 'code': item.id})

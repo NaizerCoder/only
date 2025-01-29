@@ -19,8 +19,8 @@ class ApiResource extends JsonResource
         return [
             'employee_id' => $this->employee_id,
             'surname' => $this->surname,
-//            'name' => $this->name,
-//            'patronymic' => $this->patronymic,
+            'name' => $this->name,
+            'patronymic' => $this->patronymic,
             'model' => $this->model,
 //            'cat_comfort_id' => $this->cat_comfort_id,
             'car_id' => $this->car_id,

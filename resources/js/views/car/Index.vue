@@ -81,7 +81,7 @@ export default {
         getCars() {
             axios.get('/api/car')
                 .then(res => {
-                    console.log(res.data.data)
+                    //console.log(res.data.data)
                     this.cars = res.data.data
                 })
         },

@@ -58,7 +58,7 @@ export default {
         getEmployees() {
             axios.get('/api/employee')
                 .then(res => {
-                    console.log(res.data.data)
+                    //console.log(res.data.data)
                     this.employees = res.data.data
                 })
         },
