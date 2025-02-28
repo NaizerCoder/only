@@ -18,9 +18,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 /*API CARS*/
-Route::group(['namespace' => 'App\Http\Controllers\API_GET_CARS', 'prefix'=>'cars'], function(){
+Route::group(['namespace' => 'App\Http\Controllers\API', 'prefix'=>'cars'], function(){
 
-    Route::post('/', 'ApiController');
+    Route::get('/', 'GetCars');
 });
 
 

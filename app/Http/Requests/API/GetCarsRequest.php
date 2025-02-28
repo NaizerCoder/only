@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\API_GET_CARS;
+namespace App\Http\Requests\API;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ApiRequest extends FormRequest
+class GetCarsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

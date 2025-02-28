@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Resources\API_GET_CARS;
+namespace App\Http\Resources\API;
 
 use App\Http\Resources\CategoryComfort\GetCategoriesComfortResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 
-class ApiResource extends JsonResource
+class GetCarsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

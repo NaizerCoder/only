@@ -27,7 +27,7 @@ class Position extends Model
 
     public function catComfort()
     {
-        return $this->belongsToMany(CategoryComfort::class, 'cat_comfort_position', 'position_id', 'cat_comfort_id');
+        return $this->belongsToMany(CategoryComfort::class, 'cat_comfort_position', 'position_id', 'cat_comfort_id')->orderBy('title','asc');
     }
 
 }
